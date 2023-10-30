@@ -1,32 +1,35 @@
 <template>
-  <v-app>
-    <v-main>
-      <h1>Best plans AI</h1>
-      <WhatToEat/>
-    </v-main>
-  </v-app>
+  <header class="App">
+    <h1>Best plans AI</h1>
+    <nav>
+      <router-link to="/WhatToDo">WhatToDo</router-link>
+      <router-link to="/WhatToEat">WhatToEat</router-link>
+    </nav>
+  </header>
+  <router-view/>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue'
-import WhatToEat from './components/WhatToEat.vue'
-
-export default defineComponent({
-
-  components: {
-    WhatToEat,
-  },
-
-  data () {
-    return {
-      //
-    }
-  },
-})
-</script>
-
 <style>
-  .v-main{
-    margin: 0 auto;
-  }
+#app {
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: #2c3e50;
+}
+.App{
+  text-align: center;
+}
+
+nav {
+  padding: 30px;
+}
+
+nav a {
+  font-weight: bold;
+  color: #2c3e50;
+}
+
+nav a.router-link-exact-active {
+  color: #42b983;
+}
 </style>
