@@ -6,7 +6,9 @@
       <router-link to="/WhatToEat">WhatToEat</router-link>
     </nav>
   </header>
-  <router-view/>
+  <div class="Views">
+    <router-view/>
+  </div>
 </template>
 
 <style>
@@ -18,6 +20,10 @@
 }
 .App{
   text-align: center;
+}
+.Views{
+  width: 30%;
+  margin: 0 auto;
 }
 
 nav {
