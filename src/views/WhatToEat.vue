@@ -1,6 +1,6 @@
 <template>
   <h2 style="text-align: center;">〜What's to eat?〜</h2>
-  <v-container fluid>
+  <v-container fluid v-show="!answer_hidden">
     <p>誰と？</p>
     <v-radio-group v-model="Selected_1" inline color="green darken-5">
       <v-radio label="友達" value="友達と"></v-radio>
@@ -41,11 +41,23 @@
       ></v-text-field>
       <v-checkbox label="店も教えてもらう" v-model="chk_restaurant" inline color="green darken-5"/>
     </div>
-    <v-btn v-btn v-on:click="join()">ChatGPT送信</v-btn>
-    <v-btn v-btn v-on:click="requestChatAPI()">ChatGPT送信</v-btn>
-    <div v-if="question">
+    <div style="text-align: center;">
+      <v-btn v-btn v-on:click="requestChatAPI()">送信</v-btn>
+    </div>
+  </v-container>
+  <v-container fluid v-show="answer_hidden">
+    <div>
       <p style="margin: 20px 0px;">Q:{{ question }}</p>
       <p>A:{{ answer }}</p>
+    </div>
+    <div>
+      <div v-show="loading">
+        <LoadingVue/>
+      </div>
+      <div v-show="!loading" style="text-align: center;">
+        <v-btn v-btn v-on:click="clickToBack()">戻る</v-btn>
+      </div>
+      <!-- <AnswerVue :question="question" :answer="answer" :loading='loading'/> -->
     </div>
   </v-container>
 </template>
@@ -53,6 +65,8 @@
 <script lang='ts' setup>
   import { ref } from "vue";
   import axios from 'axios'
+  import LoadingVue from './components/LoadingVue.vue'
+  //import AnswerVue from './components/AnswerVue.vue'
 
   //入力値制御
   const Selected_1 = ref<string>("友達と");
@@ -78,11 +92,15 @@
     return (question);
   }
 
-  //chatGPT_API
+  //送信ボタン押下時（chatGPT_API）
   const answer = ref<string>("")
   const api_key = process.env.VUE_APP_CHATGPT_API_KEY
+  const loading = ref<boolean>(false)
+  const answer_hidden = ref<boolean>(false)
   async function requestChatAPI() {
     join()
+    loading.value = true
+    answer_hidden.value = true
     console.log(question);
     const headers = {
       "Content-Type": "application/json",
@@ -96,7 +114,7 @@
     ];
     const payload = {
       model: "gpt-3.5-turbo",
-      max_tokens: 300,
+      max_tokens: 500,
       messages: messages,
     };
     const response = await axios.post(
@@ -107,37 +125,16 @@
       }
     );
     answer.value = response.data.choices[0].message.content;
+    console.log(answer);
+    loading.value = false
     return (answer);
   }
 
-  ////位置情報取得処理
-  //const latitude = ref<any>();
-  //const longitude = ref<any>();
-  //// ボタンを押した時の処理
-  //const getAddress = () =>{
-  //  // Geolocation APIに対応している
-  //  if( navigator.geolocation ){
-  //    // 取得に成功した場合の処理
-  //    const successCallback = (position: any) => {
-  //      // 緯度を取得
-  //      latitude.value = position.coords.latitude;
-  //      // 経度を取得
-  //      longitude.value = position.coords.longitude;
-  //    }
-  //    // 取得に失敗した場合の処理
-  //    const errorCallback = () =>{
-  //      alert("位置情報が取得できませんでした");
-  //    }
-  //    // 位置情報を取得する
-  //    navigator.geolocation.getCurrentPosition(successCallback, errorCallback);
-  //    }
-  //  // Geolocation APIに対応していない場合
-  //  else{
-  //    // 現在位置を取得できない場合の処理
-  //    alert( "あなたの端末では、現在位置を取得できません。" ) ;
-  //  }
-  //}
+  //戻るボタン押下時
+  const clickToBack = () =>{
+    answer_hidden.value = false
+    question.value = ""
+    answer.value = ""
+  }
 </script>
 
-<style>
-</style>
