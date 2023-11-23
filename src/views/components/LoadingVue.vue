@@ -4,7 +4,7 @@
 
 <style>
 .loader {
-  margin: 100px auto;
+  margin: 200px auto;
   font-size: 20px;
   width: 1em;
   height: 1em;
