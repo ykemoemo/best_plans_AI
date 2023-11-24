@@ -2,14 +2,17 @@ const { defineConfig } = require('@vue/cli-service')
 module.exports = defineConfig({
   transpileDependencies: true,
 
-  //devServer: {
-  //  proxy: {
-  //    'https://map.yahooapis.jp': {
-  //      target: 'http://localhost:8080',
-  //    }
-  //  }
-  //},
-
+  pages: {
+    index: {
+      entry: 'src/main.ts',
+      title: 'Best plans AI'
+    }
+  },
+  pwa: {
+    iconPaths: {
+      favicon32: 'favicon.ico',
+    }
+  },
 
   pluginOptions: {
     vuetify: {

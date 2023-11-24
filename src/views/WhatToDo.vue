@@ -56,10 +56,11 @@
   import AnswerVue from './components/AnswerVue.vue';
 
   //送信ボタン押下時
+  const set_question = ref<string>("")
   const answerVue = ref();
-  const clickSubmit = () =>{
+  const clickSubmit = (): void =>{
     invertAnswerHidden()
-    join()
+    set_question.value = join()
     answerVue.value.requestChatAPI(set_question.value)
   }
 
@@ -69,10 +70,9 @@
   const Selected_3 = ref<string>("");
   const Selected_4 = ref<string>("晴れの日に");
   const Selected_5 = ref<string>("");
-  const set_question = ref<string>("")
   const chk_location = ref<boolean>(false);
   const chk_restaurant = ref<boolean>(false);
-  const join = () => {
+  const join = (): string => {
     const restaurant = ref<string>("過ごす方法");
     const set_Selected_5 = ref<string>("");
     if (chk_location.value && Selected_5.value){
@@ -81,12 +81,12 @@
         restaurant.value = '過ごせるの施設'
       }
     }
-    set_question.value = set_Selected_5.value + Selected_4.value + Selected_1.value + Selected_2.value + Selected_3.value + restaurant.value + 'を教えてください。';
+    return (set_Selected_5.value + Selected_4.value + Selected_1.value + Selected_2.value + Selected_3.value + restaurant.value + 'を教えてください。');
   }
 
   //ページの切り替え
   const answer_hidden = ref<boolean>(false)
-  const invertAnswerHidden = () => {
+  const invertAnswerHidden = (): void => {
       answer_hidden.value = !answer_hidden.value
   }
 </script>

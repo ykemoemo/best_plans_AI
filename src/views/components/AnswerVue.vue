@@ -58,12 +58,12 @@
 
   //ローディング画面表示の切り替え
   const loading = ref<boolean>(false)
-  const invertLoadingHidden = () =>{
+  const invertLoadingHidden = (): void =>{
     loading.value = !loading.value
   }
 
   //戻るボタン押下時
-  const clickToBack = () =>{
+  const clickToBack = (): void =>{
     emit('invertAnswerHidden')
     question.value = ""
     answer.value = ""
