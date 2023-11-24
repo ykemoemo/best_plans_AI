@@ -1,6 +1,6 @@
 <template>
   <header class="App">
-    <h1>Best plans AI</h1>
+    <h1 style="margin-top: 30px;">Best plans AI</h1>
     <nav>
       <router-link to="/WhatToDo">WhatToDo</router-link>
       <router-link to="/WhatToEat">WhatToEat</router-link>
@@ -21,9 +21,30 @@
 .App{
   text-align: center;
 }
+
 .Views{
-  width: 30%;
+  width: 85%;
   margin: 0 auto;
+}
+@media screen and (min-width: 520px) {
+  .Views{
+    width: 60%;
+  }
+}
+@media screen and (min-width: 800px) {
+  .Views{
+    width: 40%;
+  }
+}
+@media screen and (min-width: 1200px) {
+  .Views{
+    width: 30%;
+  }
+}
+@media screen and (min-width: 1500px) {
+  .Views{
+    width: 25%;
+  }
 }
 
 nav {
