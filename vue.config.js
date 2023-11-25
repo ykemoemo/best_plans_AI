@@ -8,6 +8,7 @@ module.exports = defineConfig({
       title: 'Best plans AI'
     }
   },
+
   pwa: {
     iconPaths: {
       favicon32: 'favicon.ico',
